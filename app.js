@@ -16,11 +16,24 @@ usersRef.on('child_added', function(snapshot) {
 
 app.post('/message', function(req, res) {
 	var resp = new twilio.TwimlResponse();
-	usersRef.set({
-		number: req.body.From,
-		xCoord: 28
+	if(req.body.Body == "Let's play a game!")
+	{
+		usersRef.child(req.body.From).set({
+			xCoord: -1,
+			yCoord: -1,
+			perComplete: -1,
+			redbull: -1,
+			swag: -1,
+			gameOn: true,
+			sentText: req.body.Body
+		})
+	}
+
+	.$getScript("game.js", function(xCoord, yCoord, redbull, swag, perComplete, gameOn, sentText){
+
 	})
-	resp.message('Thanks for subscribing!');
+
+	resp.message("Vim is shittttttttttt");
 	res.writeHead(200, {
 		'Content-Type':'text/xml'
 	});

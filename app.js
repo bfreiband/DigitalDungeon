@@ -29,7 +29,7 @@ app.post('/message', function(req, res) {
 		})
 	}
 
-	.$getScript("game.js", function(xCoord, yCoord, redbull, swag, perComplete, gameOn, sentText){
+	$.getScript("game.js", function(xCoord, yCoord, redbull, swag, perComplete, gameOn, sentText){
 
 	})
 

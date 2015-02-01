@@ -19,7 +19,6 @@ app.post('/message', function(req, res) {
 	var resp = new twilio.TwimlResponse();
 	var fromNumber = req.body.From;
 	var sentText = req.body.Body;
-	var aString = "";
 
 	usersRef.child(fromNumber).on("value", function(snapshot) {
 		if(snapshot.val()===null) {return; }
@@ -54,10 +53,6 @@ app.post('/message', function(req, res) {
 			gameOn: true
 		})
 	}
-	else if(req.body.Body != "Let's play a game!")
-	{
-		aString = "To play, text this number \"Let's play a game!\"\n";
-	}
 
 	replyObj = {value: ""};
 	runGame(xCoordObj,yCoordObj,redbullObj,swagObj,perCompleteObj,gameOnObj,sentTextObj,replyObj,longAssStringObj);
@@ -73,7 +68,7 @@ app.post('/message', function(req, res) {
 		longAssString: longAssStringObj.value
 	});
 
-	resp.message(replyObj.value + aString);
+	resp.message(replyObj.value);
 	res.writeHead(200, {
 		'Content-Type':'text/xml'
 	});

@@ -172,7 +172,13 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	}
 	else if(userText.value == 5 && isSponsorSpace(xCoord.value, yCoord.value)  && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) { //If a user wants to talk to a sponsor
 		if(addLetter(xCoord.value, yCoord.value) == "f") {
-			reply.value = reply.value + "You approach a red colored table. There sat a man with a fluffy beard and cool glasses. He smiles and says, 'Hi I'm from twillo!' (+3 Red Bull, +2 swag)!\n";
+			reply.value = reply.value + "You approach a red table. There sat a man with a fluffy beard and cool glasses. He smiles and says, 'Hi I'm from Twillo! I see you're enjoying the event. Do you know what hack you're going to make?' You stutter before answering, 'An app that cures cancer?' The man laughs, 'That will never win! You need something with Twillo... and hardware... lots of hardware. How about a hack that messages you when your toast is ready, that will win UOFTHACKS!' You can feel your head getting hotter. It's quite an ambitious hack. The Twillo evangelist laughs and says, 'Well get to it! There's a hackerspace north of here.' (+3 Red Bull, +2 swag)!\n";
+		}
+		else if(addLetter(xCoord.value, yCoord.value) == "g") {
+			reply.value = reply.value + "You walk over to a green and black table. There are two nice gentlemen that greet you, 'You should check out Mashape! It's the only real dev API marketplace!' You smile, 'Awesome! Can I have a free t-shirt?' The second man smiled, 'Not yet. Impliment the Yoda-speak API you must. Take some stickers you may!' (+3 Red Bull, +2 swag)!\n"
+		}
+		else if(addLetter(xCoord.value, yCoord.value) == "i") {
+			reply.value = reply.value + "In front of you is a giant banner that says GOOGLE in bright letters. The engineer behind the booth looked flustered before asking, 'Do you have any idea where the final expo is? They told the sponsors that it's north-east of here, but I can't find it.' You open Google Maps on your smartphone with the directions to win this game. The Google engineer runs off with it. Wow. If only you thought of using that sooner. (+3 Red Bull, +2 swag, -1 cell phone)!\n"
 		}
 		else {
 			reply.value = reply.value + "Hi, I'm sponsoring UofTHacks. Here's some Red Bull and swag (+3 Red Bull, +2 swag)!\n";

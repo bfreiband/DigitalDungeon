@@ -159,18 +159,22 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 			yCoord.value = yCoord.value - 1;
 		}
 	}
-	else if(userText.value == 5 && isSponsorSpace(xCoord.value, yCoord.value)) { //If a user wants to talk to a sponsor
+	else if(userText.value == 5 && isSponsorSpace(xCoord.value, yCoord.value)  && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) { //If a user wants to talk to a sponsor
 		reply.value = reply.value + "Hi, I'm sponsoring UofTHacks. Here's some Red Bull and swag (+3 Red Bull, +2 swag)!";
 		redbull.value = redbull.value + 3;
 		swag.value = swag.value + 2;
+
+		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
 	}
-	else if(userText.value == 6 && isHackerSpace(xCoord.value, yCoord.value)) { //If a user wants to hack in a hackerspace
+	else if(userText.value == 6 && isHackerSpace(xCoord.value, yCoord.value)  && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) { //If a user wants to hack in a hackerspace
 		reply.value = reply.value + "Hi, this is a hacker space! This is where you work on your project.";
 		percComplete.value = percComplete.value + (5 * swag.value + 5);
 	}
-	else if(userText.value == 7 && isFoodSpace(xCoord.value, yCoord.value)) {
+	else if(userText.value == 7 && isFoodSpace(xCoord.value, yCoord.value) && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
 		reply.value = reply.value + "Hi, this is a food space. You get Red Bull and cold pizza here!";
 		redbull.value = redbull.value + 6;
+
+		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
 	}
 	else if(redbull.value <= 0) {
 		reply.value = reply.value + "You ran out of Red Bull! You find yourself slowly slipping into unconsciousness.\nGAME OVER!";
@@ -198,13 +202,22 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		gameOn.value = false;
 	}
 	else if(isSponsorSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You approach a sponsorship table and see a smiling man showing off his API. Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n5) Flirt with the sponsor";
+		reply.value = reply.value + "You approach a sponsorship table and see a smiling man showing off his API. Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south";
+		if(shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
+			reply.value = reply.value + "\n5) Flirt with the sponsor";
+		}
 	}
 	else if(isHackerSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You enter a classroom to a spew of garbage and creatures who smelled after not taking a shower in the last 7 hours. You decide this is a great place to hack. \nDo you:\n1) Go north\n2) Go west\n3) Go east \n4) Go south\n6) Work on your hack";
+		reply.value = reply.value + "You enter a classroom to a spew of garbage and creatures who smelled after not taking a shower in the last 7 hours. You decide this is a great place to hack. \nDo you:\n1) Go north\n2) Go west\n3) Go east \n4) Go south";
+		if(shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
+			reply.value = reply.value + "\n6) Work on your hack";
+		}
 	}
 	else if(isFoodSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You stumble down some stairs to see some Red Bull distributors giving away free Red Bull.\nDo you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n7) Ask for Red Bull.";
+		reply.value = reply.value + "You stumble down some stairs to see some Red Bull distributors giving away free Red Bull.\nDo you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south=";
+		if(shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
+			reply.value = reply.value + "\n7) Ask for Red Bull.";
+		}
 	}
 	else if(isLobbySpace(xCoord.value, yCoord.value)) {
 		reply.value = reply.value + "You are in a barren lobby. Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n";
@@ -293,4 +306,77 @@ function checkObstical (x, y) {
 		(x == 2 && y == 1) ||
 		x == 0 || x == 5 ||
 		y == 0 || y == 10;
+}
+
+function addLetter(x, y) {
+	if (x == 4 && y == 1) {
+		return a;
+	}
+	else if (x == 4 && y == 3) {
+		return b;
+	}
+	else if (x == 2 && y == 5) {
+		return c;
+	}
+	else if (x == 3 && y == 6) {
+		return d;
+	}
+	else if (x == 3 && y == 7) {
+		return e;
+	}
+	else if (x == 1 && y == 2) {
+		return f;
+	}
+	else if (x == 2 && y == 4) {
+		return g;
+	}
+	else if (x == 4 && y == 5) {
+		return h;
+	}
+	else if (x == 2 && y == 7) {
+		return i;
+	}
+	else if (x == 4 && y == 9) {
+		return j;
+	}
+	else if (x == 1 && y == 4) {
+		return k;
+	}
+	else if (x == 1 && y == 6) {
+		return l;
+	}
+	else if (x == 1 && y == 7) {
+		return m;
+	}
+	else if (x == 4 && y == 7) {
+		return n;
+	}
+	else if(x == 4 && y == 8) {
+		return o;
+	}
+	else if (x == 3 && y == 8) {
+		return p;
+	}
+	else {
+		return;
+	}
+}
+
+function shouldProc(x, y, mirandaIsCute) {
+	return (x == 4 && y == 1 && mirandaIsCute.indexOf("a") == -1) &&
+	(x == 4 && y == 3 && mirandaIsCute.indexOf("b") == -1) &&
+	(x == 2 && y == 5 && mirandaIsCute.indexOf("c") == -1) &&
+	(x == 3 && y == 6 && mirandaIsCute.indexOf("d") == -1) &&
+	(x == 3 && y == 7 && mirandaIsCute.indexOf("e") == -1) &&
+	(x == 1 && y == 2 && mirandaIsCute.indexOf("f") == -1) &&
+	(x == 2 && y == 4 && mirandaIsCute.indexOf("g") == -1) &&
+	(x == 4 && y == 5 && mirandaIsCute.indexOf("h") == -1) &&
+	(x == 2 && y == 7 && mirandaIsCute.indexOf("i") == -1) &&
+	(x == 4 && y == 9 && mirandaIsCute.indexOf("j") == -1) &&
+	(x == 1 && y == 4 && mirandaIsCute.indexOf("k") == -1) &&
+	(x == 1 && y == 6 && mirandaIsCute.indexOf("l") == -1) &&
+	(x == 1 && y == 7 && mirandaIsCute.indexOf("m") == -1) &&
+	(x == 4 && y == 7 && mirandaIsCute.indexOf("n") == -1) &&
+	(x == 4 && y == 8 && mirandaIsCute.indexOf("o") == -1) &&
+	(x == 3 && y == 8 && mirandaIsCute.indexOf("p") == -1);
 }

@@ -41,6 +41,8 @@ app.post('/message', function(req, res) {
 	var sentTextObj = {value: sentText};
 	var replyObj = {value: ""};
 
+	runGame(xCoordObj,yCoordObj,redbullObj,swagObj,perCompleteObj,gameOnObj,sentTextObj,replyObj);
+
 	resp.message(replyObj.value);
 	res.writeHead(200, {
 		'Content-Type':'text/xml'
@@ -51,3 +53,20 @@ app.post('/message', function(req, res) {
 var server = app.listen(4567, function() {
 	console.log('Listening on port %d', server.address().port);
 });
+
+/*
+runGame is a testFunction that max made that does.... some stuff
+It receives a fuckton of objects as parameters and (hopefully) can manipulate them and
+their respective values. Values of objects are accesible via "[objectName].value" where
+"[objectName]" should be replaced by the name of the actual object to be modified.
+Since objects are passed by reference rather than by value, ANY CHANGES MADE TO THESE
+OBJECTS CHANGE THE ORIGINAL OBJECTS THAT WERE PASSED. Great coding practice, obviously.
+*/
+function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, reply) {
+	if(userText == "I'm Max") {
+		reply.value = "Fuck bitcheees, git swag";
+	}
+	else {
+		reply.value = "Sup";
+	}
+}

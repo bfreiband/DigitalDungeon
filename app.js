@@ -28,6 +28,7 @@ app.post('/message', function(req, res) {
 	swagObj = {value: snapshot.val().swag};
 	perCompleteObj = {value: snapshot.val().perComplete};
 	gameOnObj = {value: snapshot.val().gameOn};
+	longAssStringObj = {value: snapshot.val().longAssString};
 	sentTextObj = {value: sentText};
 	}, function (errorObject){
 	console.log("The read failed: " + errorObject.code);
@@ -41,12 +42,13 @@ app.post('/message', function(req, res) {
 			perComplete: -1,
 			redbull: -1,
 			swag: -1,
+			longAssString: "",
 			gameOn: true
 		})
 	}
-	
+
 	replyObj = {value: ""};
-	runGame(xCoordObj,yCoordObj,redbullObj,swagObj,perCompleteObj,gameOnObj,sentTextObj,replyObj);
+	runGame(xCoordObj,yCoordObj,redbullObj,swagObj,perCompleteObj,gameOnObj,sentTextObj,replyObj,longAssStringObj);
 
 	usersRef.child(req.body.From).update({
 
@@ -55,7 +57,8 @@ app.post('/message', function(req, res) {
 		perComplete: perCompleteObj.value,
 		redbull: redbullObj.value,
 		swag: swagObj.value,
-		gameOn: gameOnObj.value
+		gameOn: gameOnObj.value,
+		longAssString: longAssStringObj.value
 	});
 
 	resp.message(replyObj.value);
@@ -77,7 +80,7 @@ their respective values. Values of objects are accesible via "[objectName].value
 Since objects are passed by reference rather than by value, ANY CHANGES MADE TO THESE
 OBJECTS CHANGE THE ORIGINAL OBJECTS THAT WERE PASSED. Great coding practice, obviously.
 */
-function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, reply) {
+function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, reply, mirandaIsCute) {
 	reply.value = "@Player: ";
 
 	//Step 1: Interpret userText and manipulate values accordingly

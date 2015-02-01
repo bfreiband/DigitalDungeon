@@ -1,5 +1,5 @@
-function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, reply) {
-	reply = "@Player: ";
+function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, reply, mirandaIsCute) {
+	reply.value = "@Player: ";
 
 	//Step 1: Interpret userText and manipulate values accordingly
 	//================================================================
@@ -11,79 +11,85 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		percComplete.value = 0;
 		gameOn.value = true;
 
-		reply.value = reply.value + "You are a lowly n00b that just entered one of the greatest hackathons in the world! You need to make your way to the top collecting swag and redbull along the way. But first, you need to make it through registration. A lady wearing a purple T-shirt greets you, 'Hi there! Did you register for the event?' Your palms begin to sweat. You remember that you were too busy watching 'say yes to the dress' to actually sign-up.\n";
+		reply.value = reply.value + "Thou art a lowly n00b that just entered one of the greatest hackathons in the world! You need to make your way to the top collecting swag and Redbull along the way. But first, you must make it through registration. A lady wearing a purple T-shirt greets you. 'Hi there! Did you register for UofTHacks?' Your palms begin to sweat. You remember that you were too busy watching 'Say Yes to the Dress' to actually sign-up.\n";
 	}
 	else if(gameOn.value == false) { //Error catching
 		return; 
 	}
 	else if(xCoord.value == 1 && yCoord.value == 9 && percComplete.value >= 100 && userText.value == 3) {
-		reply.value = reply.value + "Congrats! You have won UofThacks!!";
+		reply.value = reply.value + "CONGRATS! YOU HAVE WON UOFTHACKS!!";
 		gameOn.value = false;
+		return;
 
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value.ok + "That's fine! Here at U of T hacks, we love to see new hackers as passionate as you! Here are 5 more redbulls and your free T-shirt (+5 redbull, +1 swag). Be careful! Redbull is like a hacker's lifeforce. If you run out, you will sleep and then u'll never win UofThacks! Now go out and hack!\n";
+		reply.value = reply.value + "That's fine! Here at UofTHacks, we love to see new hackers as passionate as you! Here are 5 more Redbulls and your free T-shirt (+5 Redbull, +1 swag). Be careful! Redbull is like a hacker's lifeforce. If you run out, you will fall asleep - then you'll never be able to win UofThacks! Now get out there and hack!\n";
 		
 		xCoord.value = xCoord.value + 1;
 		redbull.value = redbull.value + 5;
 		swag.value = swag.value + 1;
 	}
 	else if(userText.value == 2 && isRegistrationSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "Sorry, we don't accept peasents like you!\n";
+		reply.value = reply.value + "Sorry, we don't accept peasants like you!\n";
 	}
 	else if(userText.value == 1) { //If the user moved north
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value, yCoord.value+1)) {
-			reply.value = reply.value + "Your path is blocked by computer wires.\n";
+			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
 			reply.value = reply.value + "Move succesful!\n";
+			yCoord.value = yCoord.value + 1;
 		}
 	}
 	else if(userText.value == 2) { //If the user moved west
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value+1, yCoord.value)) {
-			reply.value = reply.value + "Your path is blocked by computer wires.\n";
+			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
 			reply.value = reply.value + "Move succesful!\n";
+			xCoord.value = xCoord.value + 1;
 		}
 	}
 	else if(userText.value == 3) { //If the user moved east
 	
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value-1, yCoord.value)) {
-			reply.value = reply.value + "Your path is blocked by computer wires.\n";
+			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
 			reply.value = reply.value + "Move succesful!\n";
+			xCoord.value = xCoord.value - 1;
 		}
 	}
 	else if(userText.value == 4) { //If the user moved south
 		redbull.value = redbull.value - 1;
-		if(checkObstical(xCoord.value, yCoord.value+1)) {
-			reply.value = reply.value + "Your path is blocked by computer wires.\n";
+		if(checkObstical(xCoord.value, yCoord.value-1)) {
+			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
 			reply.value = reply.value + "Move succesful!\n";
+			yCoord.value = yCoord.value - 1;
 		}
 	}
 	else if(userText.value == 5 && isSponsorSpace(xCoord.value, yCoord.value)) { //If a user wants to talk to a sponsor
-		reply.value = reply.value + "Hi, i'm sponsoring UofThacks. Here's some Redbull and swag (+3 Redbull, +2 swag)!";
+		reply.value = reply.value + "Hi, I'm sponsoring UofTHacks. Here's some Redbull and swag (+3 Redbull, +2 swag)!";
 		redbull.value = redbull.value + 3;
 		swag.value = swag.value + 2;
 	}
 	else if(userText.value == 6 && isHackerSpace(xCoord.value, yCoord.value)) { //If a user wants to hack in a hackerspace
-		reply.value = reply.value + "Hi, this is a hacker space! This is where you complete your project.";
+		reply.value = reply.value + "Hi, this is a hacker space! This is where you work on your project.";
 		percComplete.value = percComplete.value + (5 * swag.value + 5);
 	}
 	else if(userText.value == 7 && isFoodSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "Hi, this is a food space. You get redbull here!";
+		reply.value = reply.value + "Hi, this is a food space. You get Redbull and cold pizza here!";
 		redbull.value = redbull.value + 6;
 	}
 	else if(redbull.value <= 0) {
-		reply.value = reply.value + "You ran out of Redbull! GAME OVER!";
+		reply.value = reply.value + "You ran out of Redbull! You find yourself slowly slipping into unconsciousness.\nGAME OVER!";
 		gameOn.value = false;
+		return;
 	}
 
 
@@ -99,20 +105,23 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		reply.value = reply.value + "Do you:\n1.) Be honest\n2.) Lie\n(text back the number you choose!)";
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "Do you:\n1.) Go north\n2.) Go west\n3.) Go east\n4.) Go south\n";
+		reply.value = reply.value + "Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n";
 	}
 	else if(userText.value == 2 && isRegistrationSpace(xCoord.value, yCoord.value)) {
 		reply.value = reply.value + "GAME OVER!\nRemember to text us again to restart!";
 		gameOn.value = false;
 	}
 	else if(isSponsorSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You approach a sponsorship table and see a smiling man showing off his api. Do you:\n1.) Go north\n2.) Go west\n3.) Go east\n4.) Go south\n5.) Flirt with the sponsor";
+		reply.value = reply.value + "You approach a sponsorship table and see a smiling man showing off his API. Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n5) Flirt with the sponsor";
 	}
 	else if(isHackerSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You enter a classroom to a spew of garbage and creatures who smelled after not taking a shower in the last 7 hours. You decide this is a great place to hack. \nDo you:\n1.) Go north\n2.) Go west\n3.) Go east \n4.) Go south\n6.) Work on your hack";
+		reply.value = reply.value + "You enter a classroom to a spew of garbage and creatures who smelled after not taking a shower in the last 7 hours. You decide this is a great place to hack. \nDo you:\n1) Go north\n2) Go west\n3) Go east \n4) Go south\n6) Work on your hack";
 	}
 	else if(isFoodSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You stumble down some stairs to see some redbull girls giving away free redbull.\nDo you:\n1.) Go north\n2.) Go west\n3.) Go east\n4.) Go south\n5.) Ask for redbull.";
+		reply.value = reply.value + "You stumble down some stairs to see some Redbull distributors giving away free Redbull.\nDo you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n7) Ask for Redbull.";
+	}
+	else if(isLobbySpace(xCoord.value, yCoord.value)) {
+		reply.value = reply.value + "You are in a barren lobby. Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n";
 	}
 }
 

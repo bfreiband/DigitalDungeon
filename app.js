@@ -109,7 +109,11 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		reply.value = reply.value + "CONGRATS! YOU HAVE WON UOFTHACKS!!";
 		gameOn.value = false;
 		return;
-
+	}
+		else if(redbull.value <= 0) {
+		reply.value = reply.value + "You ran out of Red Bull! You find yourself slowly slipping into unconsciousness.\nGAME OVER!";
+		gameOn.value = false;
+		return;
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {
 		reply.value = reply.value + "That's fine! Here at UofTHacks, we love to see new hackers as passionate as you! Here are 5 more Red Bulls and your free T-shirt (+5 Red Bull, +1 swag). Be careful! Red Bull is like a hacker's lifeforce. If you run out, you will fall asleep - then you'll never be able to win UofThacks! Now get out there and hack!\n";
@@ -194,11 +198,6 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		redbull.value = redbull.value + 6;
 
 		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
-	}
-	else if(redbull.value <= 0) {
-		reply.value = reply.value + "You ran out of Red Bull! You find yourself slowly slipping into unconsciousness.\nGAME OVER!";
-		gameOn.value = false;
-		return;
 	}
 
 

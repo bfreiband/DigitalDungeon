@@ -127,7 +127,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
-			reply.value = reply.value + "Move succesful!\n";
+			reply.value = reply.value + "Move successful!\n";
 			yCoord.value = yCoord.value + 1;
 		}
 	}
@@ -138,7 +138,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
-			reply.value = reply.value + "Move succesful!\n";
+			reply.value = reply.value + "Move successful!\n";
 			xCoord.value = xCoord.value + 1;
 		}
 	}
@@ -150,7 +150,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
-			reply.value = reply.value + "Move succesful!\n";
+			reply.value = reply.value + "Move successful!\n";
 			xCoord.value = xCoord.value - 1;
 		}
 	}
@@ -161,7 +161,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
-			reply.value = reply.value + "Move succesful!\n";
+			reply.value = reply.value + "Move successful!\n";
 			yCoord.value = yCoord.value - 1;
 		}
 	}

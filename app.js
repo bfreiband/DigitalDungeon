@@ -41,7 +41,7 @@ app.post('/message', function(req, res) {
 	console.log("The read failed: " + errorObject.code);
 	});
 
-	if(req.body.Body == "Let's play a game!")
+	if(req.body.Body.toUpperCase() == "LET'S PLAY A GAME!" || req.body.Body.toUpperCase() == "START")
 	{
 		usersRef.child(req.body.From).set({
 			xCoord: -1,
@@ -92,7 +92,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 
 	//Step 1: Interpret userText and manipulate values accordingly
 	//================================================================
-	if(userText.value == "Let's play a game!") { //Inital testcase
+	if((userText.value.toUpperCase() == "LET'S PLAY A GAME!") || (userText.value.toUpperCase() == "START")) { //Inital testcase
 		xCoord.value = 2;
 		yCoord.value = 1;
 		redbull.value = 5;
@@ -209,7 +209,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 
 	//Step 3 - Ask user for action
 	//===============================
-	if(userText.value == "Let's play a game!") {
+	if(userText.value.toUpperCase() == "LET'S PLAY A GAME!" || userText.value.toUpperCase() == "START") {
 		reply.value = reply.value + "Do you:\n1) Be honest\n2) Lie\n(text back the number you choose!)";
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {

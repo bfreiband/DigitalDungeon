@@ -1,4 +1,5 @@
 var twilio = require('twilio'),
+client = twilio('***REMOVED***','***REMOVED***'),
 client = twilio('***REMOVED***','***REMOVED***');
 var Firebase = require('firebase'),
 usersRef = new Firebase('https://shining-inferno-3310.firebaseio.com/users/');

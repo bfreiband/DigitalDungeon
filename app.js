@@ -31,6 +31,12 @@ app.post('/message', function(req, res) {
 	gameOnObj = {value: snapshot.val().gameOn};
 	longAssStringObj = {value: snapshot.val().longAssString};
 	sentTextObj = {value: sentText};
+
+	if(gameOnObj.value == false)
+	{
+		usersRef.child(fromNumber).remove();
+	}
+
 	}, function (errorObject){
 	console.log("The read failed: " + errorObject.code);
 	});
@@ -160,18 +166,25 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		}
 	}
 	else if(userText.value == 5 && isSponsorSpace(xCoord.value, yCoord.value)  && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) { //If a user wants to talk to a sponsor
-		reply.value = reply.value + "Hi, I'm sponsoring UofTHacks. Here's some Red Bull and swag (+3 Red Bull, +2 swag)!";
+		if(addLetter(xCoord.value, yCoord.value) == "f") {
+			reply.value = reply.value + "You approach a red colored table. There sat a man with a fluffy beard and cool glasses. He smiles and says, 'Hi I'm from twillo!' (+3 Red Bull, +2 swag)!\n";
+		}
+		else {
+			reply.value = reply.value + "Hi, I'm sponsoring UofTHacks. Here's some Red Bull and swag (+3 Red Bull, +2 swag)!\n";
+		}
 		redbull.value = redbull.value + 3;
 		swag.value = swag.value + 2;
 
 		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
 	}
 	else if(userText.value == 6 && isHackerSpace(xCoord.value, yCoord.value)  && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) { //If a user wants to hack in a hackerspace
-		reply.value = reply.value + "Hi, this is a hacker space! This is where you work on your project.";
+		reply.value = reply.value + "Hi, this is a hacker space! This is where you work on your project.\n";
 		percComplete.value = percComplete.value + (5 * swag.value + 5);
+
+		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
 	}
 	else if(userText.value == 7 && isFoodSpace(xCoord.value, yCoord.value) && shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
-		reply.value = reply.value + "Hi, this is a food space. You get Red Bull and cold pizza here!";
+		reply.value = reply.value + "Hi, this is a food space. You get Red Bull and cold pizza here!\n";
 		redbull.value = redbull.value + 6;
 
 		mirandaIsCute.value = mirandaIsCute.value + addLetter(xCoord.value, yCoord.value);
@@ -214,7 +227,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 		}
 	}
 	else if(isFoodSpace(xCoord.value, yCoord.value)) {
-		reply.value = reply.value + "You stumble down some stairs to see some Red Bull distributors giving away free Red Bull.\nDo you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south=";
+		reply.value = reply.value + "You stumble down some stairs to see some Red Bull distributors giving away free Red Bull.\nDo you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south";
 		if(shouldProc(xCoord.value, yCoord.value, mirandaIsCute.value)) {
 			reply.value = reply.value + "\n7) Ask for Red Bull.";
 		}
@@ -310,73 +323,109 @@ function checkObstical (x, y) {
 
 function addLetter(x, y) {
 	if (x == 4 && y == 1) {
-		return a;
+		return "a";
 	}
 	else if (x == 4 && y == 3) {
-		return b;
+		return "b";
 	}
 	else if (x == 2 && y == 5) {
-		return c;
+		return "c";
 	}
 	else if (x == 3 && y == 6) {
-		return d;
+		return "d";
 	}
 	else if (x == 3 && y == 7) {
-		return e;
+		return "e";
 	}
 	else if (x == 1 && y == 2) {
-		return f;
+		return "f";
 	}
 	else if (x == 2 && y == 4) {
-		return g;
+		return "g";
 	}
 	else if (x == 4 && y == 5) {
-		return h;
+		return "h";
 	}
 	else if (x == 2 && y == 7) {
-		return i;
+		return "i";
 	}
 	else if (x == 4 && y == 9) {
-		return j;
+		return "j";
 	}
 	else if (x == 1 && y == 4) {
-		return k;
+		return "k";
 	}
 	else if (x == 1 && y == 6) {
-		return l;
+		return "l";
 	}
 	else if (x == 1 && y == 7) {
-		return m;
+		return "m";
 	}
 	else if (x == 4 && y == 7) {
-		return n;
+		return "n";
 	}
 	else if(x == 4 && y == 8) {
-		return o;
+		return "o";
 	}
 	else if (x == 3 && y == 8) {
-		return p;
+		return "p";
 	}
 	else {
-		return;
+		return "";
 	}
 }
 
+//Returns true when the letter for x, y is not inside string mirandaIsCute
 function shouldProc(x, y, mirandaIsCute) {
-	return (x == 4 && y == 1 && mirandaIsCute.indexOf("a") == -1) &&
-	(x == 4 && y == 3 && mirandaIsCute.indexOf("b") == -1) &&
-	(x == 2 && y == 5 && mirandaIsCute.indexOf("c") == -1) &&
-	(x == 3 && y == 6 && mirandaIsCute.indexOf("d") == -1) &&
-	(x == 3 && y == 7 && mirandaIsCute.indexOf("e") == -1) &&
-	(x == 1 && y == 2 && mirandaIsCute.indexOf("f") == -1) &&
-	(x == 2 && y == 4 && mirandaIsCute.indexOf("g") == -1) &&
-	(x == 4 && y == 5 && mirandaIsCute.indexOf("h") == -1) &&
-	(x == 2 && y == 7 && mirandaIsCute.indexOf("i") == -1) &&
-	(x == 4 && y == 9 && mirandaIsCute.indexOf("j") == -1) &&
-	(x == 1 && y == 4 && mirandaIsCute.indexOf("k") == -1) &&
-	(x == 1 && y == 6 && mirandaIsCute.indexOf("l") == -1) &&
-	(x == 1 && y == 7 && mirandaIsCute.indexOf("m") == -1) &&
-	(x == 4 && y == 7 && mirandaIsCute.indexOf("n") == -1) &&
-	(x == 4 && y == 8 && mirandaIsCute.indexOf("o") == -1) &&
-	(x == 3 && y == 8 && mirandaIsCute.indexOf("p") == -1);
+	if(x == 4 && y == 1 && mirandaIsCute.indexOf("a") == -1) {
+		return true;
+	}
+	else if(x == 4 && y == 3 && mirandaIsCute.indexOf("b") == -1) {
+		return true;
+	}
+	else if(x == 2 && y == 5 && mirandaIsCute.indexOf("c") == -1) {
+		return true;
+	}
+	else if(x == 3 && y == 6 && mirandaIsCute.indexOf("d") == -1) {
+		return true;
+	}
+	else if(x == 3 && y == 7 && mirandaIsCute.indexOf("e") == -1) {
+		return true;
+	}
+	else if(x == 1 && y == 2 && mirandaIsCute.indexOf("f") == -1) {
+		return true;
+	}
+	else if(x == 2 && y == 4 && mirandaIsCute.indexOf("g") == -1) {
+		return true;
+	}
+	else if(x == 4 && y == 5 && mirandaIsCute.indexOf("h") == -1) {
+		return true;
+	}
+	else if(x == 2 && y == 7 && mirandaIsCute.indexOf("i") == -1) {
+		return true;
+	}
+	else if(x == 4 && y == 9 && mirandaIsCute.indexOf("j") == -1) {
+		return true;
+	}
+	else if(x == 1 && y == 4 && mirandaIsCute.indexOf("k") == -1) {
+		return true;
+	}
+	else if(x == 1 && y == 6 && mirandaIsCute.indexOf("l") == -1) {
+		return true;
+	}
+	else if(x == 1 && y == 7 && mirandaIsCute.indexOf("m") == -1) {
+		return true;
+	}
+	else if(x == 4 && y == 7 && mirandaIsCute.indexOf("n") == -1) {
+		return true;
+	}
+	else if(x == 4 && y == 8 && mirandaIsCute.indexOf("o") == -1) {
+		return true;
+	}
+	else if(x == 3 && y == 8 && mirandaIsCute.indexOf("p") == -1) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

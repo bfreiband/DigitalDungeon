@@ -44,16 +44,7 @@ app.post('/message', function(req, res) {
 			gameOn: true
 		})
 	}
-
-	//Set all of the variables that need to be passed to Max's function to objects
-	/*var xCoordObj = {value: usersRef.child(fromNumber).xCoord};
-	var yCoordObj = {value: usersRef.child(fromNumber).yCoord};
-	var redbullObj = {value: usersRef.child(fromNumber).redbull};
-	var swagObj = {value: usersRef.child(fromNumber).swag};
-	var perCompleteObj = {value: usersRef.child(fromNumber).perComplete};
-	var gameOnObj = {value: usersRef.child(fromNumber).gameOn};
-	var sentTextObj = {value: sentText};
-	var replyObj = {value: ""};*/
+	
 	replyObj = {value: ""};
 	runGame(xCoordObj,yCoordObj,redbullObj,swagObj,perCompleteObj,gameOnObj,sentTextObj,replyObj);
 

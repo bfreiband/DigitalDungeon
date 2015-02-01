@@ -16,6 +16,9 @@ usersRef.on('child_added', function(snapshot) {
 
 app.post('/message', function(req, res) {
 	var resp = new twilio.TwimlResponse();
+	var fromNumber = req.body.From;
+	var sentText = req.body.Body;
+
 	if(req.body.Body == "Let's play a game!")
 	{
 		usersRef.child(req.body.From).set({
@@ -25,15 +28,20 @@ app.post('/message', function(req, res) {
 			redbull: -1,
 			swag: -1,
 			gameOn: true,
-			sentText: req.body.Body
 		})
 	}
 
-	$.getScript("game.js", function(xCoord, yCoord, redbull, swag, perComplete, gameOn, sentText){
+	//Set all of the variables that need to be passed to Max's function to objects
+	var xCoordObj = {value: usersRef.child(fromNumber).xCoord};
+	var yCoordObj = {value: usersRef.child(fromNumber).yCoord};
+	var redbullObj = {value: usersRef.child(fromNumber).redbull};
+	var swagObj = {value: usersRef.child(fromNumber).swag};
+	var perCompleteObj = {value: usersRef.child(fromNumber).perComplete};
+	var gameOnObj = {value: usersRef.child(fromNumber).gameOn};
+	var sentTextObj = {value: sentText};
+	var replyObj = {value: ""};
 
-	})
-
-	resp.message("Vim is shittttttttttt");
+	resp.message(replyObj.value);
 	res.writeHead(200, {
 		'Content-Type':'text/xml'
 	});

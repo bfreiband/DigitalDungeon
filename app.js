@@ -106,7 +106,6 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {
 		reply.value = reply.value + "That's fine! Here at UofTHacks, we love to see new hackers as passionate as you! Here are 5 more Red Bulls and your free T-shirt (+5 Red Bull, +1 swag). Be careful! Red Bull is like a hacker's lifeforce. If you run out, you will fall asleep - then you'll never be able to win UofThacks! Now get out there and hack!\n";
-		
 		xCoord.value = xCoord.value + 1;
 		redbull.value = redbull.value + 5;
 		swag.value = swag.value + 1;
@@ -117,6 +116,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	else if(userText.value == 1) { //If the user moved north
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value, yCoord.value+1)) {
+			redbull.value = redbull.value - 2;
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
@@ -127,6 +127,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	else if(userText.value == 2) { //If the user moved west
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value+1, yCoord.value)) {
+			redbull.value = redbull.value - 2;
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
@@ -138,6 +139,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value-1, yCoord.value)) {
+			redbull.value = redbull.value - 2;
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
@@ -148,6 +150,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	else if(userText.value == 4) { //If the user moved south
 		redbull.value = redbull.value - 1;
 		if(checkObstical(xCoord.value, yCoord.value-1)) {
+			redbull.value = redbull.value - 2;
 			reply.value = reply.value + "Your path is blocked by computer wires. You did not move.\n";
 		}
 		else {
@@ -184,7 +187,7 @@ function runGame(xCoord, yCoord, redbull, swag, percComplete, gameOn, userText, 
 	//Step 3 - Ask user for action
 	//===============================
 	if(userText.value == "Let's play a game!") {
-		reply.value = reply.value + "Do you:\n1.) Be honest\n2.) Lie\n(text back the number you choose!)";
+		reply.value = reply.value + "Do you:\n1) Be honest\n2) Lie\n(text back the number you choose!)";
 	}
 	else if(userText.value == 1 && isRegistrationSpace(xCoord.value, yCoord.value)) {
 		reply.value = reply.value + "Do you:\n1) Go north\n2) Go west\n3) Go east\n4) Go south\n";
